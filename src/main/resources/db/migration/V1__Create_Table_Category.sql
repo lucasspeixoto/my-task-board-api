@@ -1,0 +1,7 @@
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE IF NOT EXISTS category (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title VARCHAR(50) NOT NULL,
+  color VARCHAR(10) NOT NULL
+);

@@ -1,0 +1,19 @@
+meta {
+  name: createTask
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{apiUrl}}/api/v1/task
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Treinar",
+    "categoryId": "e72596db-9734-4468-97c2-66a1f039eff3",
+    "completed": false
+  }
+}

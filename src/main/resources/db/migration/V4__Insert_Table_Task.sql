@@ -1,0 +1,2 @@
+INSERT INTO task (id, title, completed, category_id, created_at, updated_at) VALUES
+	('01b23c6f-0c7c-4530-bf62-3cef6f9ed9d3', 'Treinar', false, 'e72596db-9734-4468-97c2-66a1f039eff3', '2024-11-26 13:31:30.000000', '2023-11-26 22:31:30.000000');
