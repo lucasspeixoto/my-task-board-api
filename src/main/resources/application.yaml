@@ -11,8 +11,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/my-task-board?useTimezone=true&serverTimezone=America/Sao_Paulo
-    username: postgres
-    password: lucasadmin3010
+    username: ${POSTGRESDB_USER}
+    password: ${POSTGRESDB_ROOT_PASSWORD}
     hikari:
       auto-commit: false
   jpa:
