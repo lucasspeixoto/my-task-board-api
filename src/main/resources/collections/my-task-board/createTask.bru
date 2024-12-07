@@ -12,8 +12,18 @@ post {
 
 body:json {
   {
-    "title": "Treinar",
+    "title": "Comer dieta",
     "categoryId": "e72596db-9734-4468-97c2-66a1f039eff3",
     "completed": false
   }
+}
+
+script:post-response {
+  let response = res.getBody();
+  
+  if(response.id) {
+    bru.setEnvVar("id", response.id)
+  }
+  
+  
 }

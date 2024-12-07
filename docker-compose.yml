@@ -2,23 +2,27 @@ version: '3.9'
 
 services:
   db:
-    image: postgres:latest
+    image: postgres
+    container_name: postgres
     restart: unless-stopped
-    container_name: my-task-board-db
     hostname: db-postgresql
-    env_file: src/main/resources/env.properties
+    env_file:
+      - ./env.properties
     environment:
-      - POSTGRES_USER=$POSTGRESDB_USER
-      - POSTGRES_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
-      - POSTGRES_DB=$POSTGRESDB_DATABASE
+      - POSTGRES_USER=${POSTGRESDB_USER}
+      - POSTGRES_PASSWORD=${POSTGRESDB_PASSWORD}
+      - POSTGRES_DB=${POSTGRESDB_DATABASE}
+    expose:
+      - "${POSTGRESDB_DOCKER_PORT}"
     ports:
-      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
+      - "${POSTGRESDB_LOCAL_PORT}:${POSTGRESDB_DOCKER_PORT}"
     networks:
-      - my-task-board-network
-  my-task-board-api:
-    image: lspeixotodev/my-task-board-api
+      - app-network
+
+  app:
+    image: my-task-board-api:v1
+    container_name: my-task-board
     restart: on-failure
-    container_name: my-task-board-api
     depends_on:
       - db
     build:
@@ -27,18 +31,15 @@ services:
     working_dir: /
     environment:
       TZ: America/Sao_Paulo
-      SPRING.DATASOURCE.URL: jdbc:postgresql://db:5432/my-task-board?useTimezone=true&serverTimezone=America/Sao_Paulo
-      SPRING.DATASOURCE.USERNAME: $POSTGRESDB_USER
-      SPRING.DATASOURCE.PASSWORD: $POSTGRESDB_ROOT_PASSWORD
+      SPRING.DATASOURCE.URL: ${POSTGRESDB_DOCKER_URL}
+      SPRING.DATASOURCE.USERNAME: ${POSTGRESDB_USER}
+      SPRING.DATASOURCE.PASSWORD: ${POSTGRESDB_PASSWORD}
     ports:
-      - $SPRING_LOCAL_PORT:$SPRING_LOCAL_PORT
+      - "${SPRING_LOCAL_PORT}:${SPRING_DOCKER_PORT}"
     command: mvn spring-boot:run
-    volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
     networks:
-      - my-task-board-network
+      - app-network
+
 networks:
-  my-task-board-network:
+  app-network:
     driver: bridge

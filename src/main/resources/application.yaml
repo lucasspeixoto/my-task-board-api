@@ -8,22 +8,22 @@ cors:
   allowed-headers: "Requestor-Type"
   exposed-headers: "X-Get-Header"
 spring:
-  config:
-    import: env.properties
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/my-task-board?useTimezone=true&serverTimezone=America/Sao_Paulo
+    url: ${POSTGRESDB_LOCAL_URL}
     username: ${POSTGRESDB_USER}
-    password: ${POSTGRESDB_ROOT_PASSWORD}
+    password: ${POSTGRESDB_PASSWORD}
     hikari:
       auto-commit: false
   jpa:
     generate-ddl: true
     hibernate:
       ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     enabled: true
-    locations: db/migration
   jackson:
     time-zone: America/Sao_Paulo
 springdoc:

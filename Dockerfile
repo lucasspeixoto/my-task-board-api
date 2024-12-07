@@ -9,7 +9,6 @@ FROM eclipse-temurin:21-alpine as prod
 
 ARG JAR_FILE=target/*.jar
 COPY --from=builder ${JAR_FILE} app.jar
-ENV SERVER_PORT=6060
 WORKDIR /
 EXPOSE 6060
 ENTRYPOINT ["java", "-jar", "/app.jar"]

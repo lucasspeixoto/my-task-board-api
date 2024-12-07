@@ -15,7 +15,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("My Task Board API")
                         .version("v1")
-                        .description("Documentation about My Task Board API`s")
+                        .description("Documentation about My Task Board API")
                         .termsOfService("https://github.com/lucasspeixoto/my-task-board-api")
                         .license(new License()
                                 .name("Apache 2.0")
