@@ -8,6 +8,8 @@ cors:
   allowed-headers: "Requestor-Type"
   exposed-headers: "X-Get-Header"
 spring:
+  config:
+    import: env.properties
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/my-task-board?useTimezone=true&serverTimezone=America/Sao_Paulo
